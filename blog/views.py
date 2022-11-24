@@ -82,3 +82,10 @@ def comment_edit(request, pk):
     else:
         form = CommentForm(instance=comment)
     return render(request, 'blog/comment_edit.html', {'form': form})
+
+
+class CommentDelete(DeleteView):
+    model = Comment
+
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.object.post.pk})
